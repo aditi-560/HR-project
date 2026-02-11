@@ -235,4 +235,116 @@ router.get('/admin/all', authenticate, requireAdmin, async (req, res) => {
   }
 });
 
+// Admin: Monthly Attendance Report
+router.get('/admin/monthly-report', authenticate, requireAdmin, async (req, res) => {
+  try {
+    const { month, year, name } = req.query;
+
+    if (!month || !year) {
+      return res.status(400).json({ message: 'Month and Year are required.' });
+    }
+
+    const y = parseInt(year);
+    const m = parseInt(month); // 1-12
+
+    // Calculate start and end of the month
+    const startOfMonth = new Date(y, m - 1, 1);
+    const endOfMonth = new Date(y, m, 0, 23, 59, 59, 999);
+    
+    // Determine the number of days to calculate up to
+    // If it's the current month, calculate up to yesterday (or today)
+    // If past month, calculate full days in month
+    const now = new Date();
+    const daysInMonth = new Date(y, m, 0).getDate();
+    let daysToCount = daysInMonth;
+    
+    if (now.getMonth() === m - 1 && now.getFullYear() === y) {
+       daysToCount = now.getDate();
+    } else if (now < startOfMonth) {
+       daysToCount = 0; // Future month
+    }
+
+    // 1. Fetch all employees
+    const employees = await User.find({ role: 'employee' })
+      .select('full_name email _id date_of_joining')
+      .lean();
+
+    // 2. Fetch all attendance records for the month
+    const attendanceRecords = await Attendance.find({
+      date: { $gte: startOfMonth, $lte: endOfMonth }
+    }).lean();
+
+    // Map records by user_id and date
+    // Map<userId, Map<day, status>>
+    const userAttendanceMap = new Map();
+    attendanceRecords.forEach(att => {
+      const uid = att.user_id.toString();
+      if (!userAttendanceMap.has(uid)) {
+        userAttendanceMap.set(uid, new Map());
+      }
+      const day = new Date(att.date).getDate();
+      userAttendanceMap.get(uid).set(day, att.status);
+    });
+
+    // 3. Build Report
+    let report = employees.map(emp => {
+      const uid = emp._id.toString();
+      const empRecords = userAttendanceMap.get(uid) || new Map();
+      
+      let presentCount = 0;
+      let absentCount = 0;
+      let dailyRecords = [];
+
+      // Loop through each day up to daysToCount
+      for (let d = 1; d <= daysToCount; d++) {
+         const currentDate = new Date(y, m - 1, d);
+         // Skip if employee joined after this date
+         if (new Date(emp.date_of_joining) > currentDate) continue;
+
+         const status = empRecords.get(d) || 'absent'; // Default absent
+         dailyRecords.push({
+           date: currentDate.toISOString().split('T')[0],
+           status
+         });
+
+         if (status === 'present') presentCount++;
+         else absentCount++;
+      }
+      
+      const totalDays = presentCount + absentCount; // Effective days for this employee
+      const percentage = totalDays > 0 ? ((presentCount / totalDays) * 100).toFixed(1) : "0.0";
+
+      return {
+        id: uid,
+        name: emp.full_name,
+        email: emp.email,
+        totalDays: totalDays,
+        present: presentCount,
+        absent: absentCount,
+        percentage: parseFloat(percentage),
+        dailyRecords
+      };
+    });
+
+    // Filter by name if provided
+    if (name) {
+      const n = name.toLowerCase();
+      report = report.filter(r => 
+        r.name.toLowerCase().includes(n) || 
+        r.email.toLowerCase().includes(n)
+      );
+    }
+
+    res.json({
+      month: m,
+      year: y,
+      totalEmployees: report.length,
+      report
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Failed to generate monthly report.' });
+  }
+});
+
 module.exports = router;

@@ -14,6 +14,7 @@ const navItems = {
     { to: "/", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/admin/leaves", icon: ClipboardList, label: "Leave Requests" },
     { to: "/admin/attendance", icon: CalendarCheck, label: "Attendance" },
+    { to: "/admin/monthly-report", icon: CalendarDays, label: "Monthly Report" },
     { to: "/admin/employees", icon: User, label: "Employees" },
   ],
 };

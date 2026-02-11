@@ -254,6 +254,29 @@ export const attendanceApi = {
       }
     );
   },
+
+  async adminGetMonthlyReport(month: number, year: number, name?: string) {
+    const params = new URLSearchParams();
+    params.set("month", month.toString());
+    params.set("year", year.toString());
+    if (name) params.set("name", name);
+    
+    return request<{
+      month: number;
+      year: number;
+      totalEmployees: number;
+      report: Array<{
+        id: string;
+        name: string;
+        email: string;
+        totalDays: number;
+        present: number;
+        absent: number;
+        percentage: number;
+        dailyRecords: Array<{ date: string; status: "present" | "absent" }>;
+      }>;
+    }>(`/attendance/admin/monthly-report?${params.toString()}`);
+  },
 };
 
 // Users (admin)

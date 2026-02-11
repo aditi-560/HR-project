@@ -13,6 +13,7 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import AdminLeaves from "@/pages/AdminLeaves";
 import AdminAttendance from "@/pages/AdminAttendance";
 import AdminEmployees from "@/pages/AdminEmployees";
+import AdminMonthlyReport from "@/pages/AdminMonthlyReport";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/admin/leaves" element={<ProtectedRoute><AdminRoute><AdminLeaves /></AdminRoute></ProtectedRoute>} />
             <Route path="/admin/attendance" element={<ProtectedRoute><AdminRoute><AdminAttendance /></AdminRoute></ProtectedRoute>} />
             <Route path="/admin/employees" element={<ProtectedRoute><AdminRoute><AdminEmployees /></AdminRoute></ProtectedRoute>} />
+            <Route path="/admin/monthly-report" element={<ProtectedRoute><AdminRoute><AdminMonthlyReport /></AdminRoute></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
