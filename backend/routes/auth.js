@@ -4,6 +4,7 @@ const { OAuth2Client } = require('google-auth-library');
 const User = require('../models/User');
 const LeaveBalance = require('../models/LeaveBalance');
 const { authenticate } = require('../middleware/auth');
+const sendEmail = require('../utils/email');
 
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -34,6 +35,22 @@ router.post('/register', async (req, res) => {
     });
     await LeaveBalance.create({ user_id: user._id });
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
+
+    // Send Welcome Email
+    const emailSubject = 'Welcome to HR Harmony!';
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+        <h2 style="color: #2563eb;">Welcome to HR Harmony!</h2>
+        <p>Hi ${user.full_name},</p>
+        <p>Thank you for registering with us. We are excited to have you on board.</p>
+        <p>Your account has been successfully created.</p>
+        <br>
+        <p>Best regards,</p>
+        <p><strong>The HR Harmony Team</strong></p>
+      </div>
+    `;
+    await sendEmail(user.email, emailSubject, emailHtml);
+
     res.status(201).json({
       token,
       user: {
@@ -101,6 +118,21 @@ router.post('/google', async (req, res) => {
         role: 'employee', // Default role
       });
       await LeaveBalance.create({ user_id: user._id });
+
+      // Send Welcome Email for Google Sign-up
+      const emailSubject = 'Welcome to HR Harmony!';
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #2563eb;">Welcome to HR Harmony!</h2>
+          <p>Hi ${user.full_name},</p>
+          <p>Thank you for signing in with Google. Your account has been successfully created.</p>
+          <br>
+          <p>Best regards,</p>
+          <p><strong>The HR Harmony Team</strong></p>
+        </div>
+      `;
+      await sendEmail(user.email, emailSubject, emailHtml);
+
     } else {
       // Link Google ID if not linked
       if (!user.googleId) {

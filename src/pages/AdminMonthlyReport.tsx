@@ -20,7 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Search, FileBarChart, Download } from "lucide-react";
+import { Search, FileBarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const MONTHS = [
@@ -75,10 +75,6 @@ export default function AdminMonthlyReport() {
             Overview of employee attendance for {MONTHS.find((m) => m.value === parseInt(month))?.label} {year}.
           </p>
         </div>
-        <Button variant="outline" className="gap-2">
-          <Download className="h-4 w-4" />
-          Export CSV
-        </Button>
       </div>
 
       <Card>
