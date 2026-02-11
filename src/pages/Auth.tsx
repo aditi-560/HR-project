@@ -174,10 +174,7 @@ export default function Auth() {
                   {isLogin ? "Sign up" : "Sign in"}
                 </button>
               </div>
-              <div className="rounded-lg bg-muted/30 p-3">
-                <p className="text-xs font-medium text-muted-foreground mb-1">Demo admin (run seed:admin first)</p>
-                <p className="font-mono text-xs text-foreground/90">admin@test.com / Admin123!</p>
-              </div>
+              
             </CardContent>
           </Card>
         </div>
