@@ -43,6 +43,7 @@ const ABSENT_REASONS = [
 
 type AttendanceRecord = {
   id: string;
+  employeeId: string;
   profiles: { full_name: string; email: string };
   status: "present" | "absent";
   reason?: string | null;
@@ -53,19 +54,26 @@ export default function AdminAttendance() {
   const qc = useQueryClient();
   const [filterDate, setFilterDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [filterName, setFilterName] = useState("");
-  const [absentDialog, setAbsentDialog] = useState<{ id: string; name: string } | null>(null);
+  const [absentDialog, setAbsentDialog] = useState<{ id: string; employeeId: string; name: string } | null>(null);
   const [absentReason, setAbsentReason] = useState<string>("");
   const [absentOtherText, setAbsentOtherText] = useState("");
-  const [presentConfirm, setPresentConfirm] = useState<{ id: string; name: string } | null>(null);
+  const [presentConfirm, setPresentConfirm] = useState<{ id: string; employeeId: string; name: string } | null>(null);
 
-  const { data: records, isLoading } = useQuery({
+  const { data: report, isLoading } = useQuery({
     queryKey: ["admin-attendance", filterDate, filterName],
     queryFn: () => attendanceApi.adminGetAll({ date: filterDate, name: filterName || undefined }),
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, status, reason }: { id: string; status: "present" | "absent"; reason?: string }) =>
-      attendanceApi.adminUpdate(id, status, reason),
+    mutationFn: ({ id, employeeId, status, reason }: { id: string; employeeId: string; status: "present" | "absent"; reason?: string }) => {
+      if (id.startsWith("temp-")) {
+        // Create new record
+        return attendanceApi.adminMark(employeeId, filterDate, status, reason);
+      } else {
+        // Update existing record
+        return attendanceApi.adminUpdate(id, status, reason);
+      }
+    },
     onSuccess: (_, { status }) => {
       toast({ title: status === "absent" ? "Marked absent" : "Marked present" });
       qc.invalidateQueries({ queryKey: ["admin-attendance", filterDate, filterName] });
@@ -86,17 +94,17 @@ export default function AdminAttendance() {
       toast({ title: "Please select or enter a reason", variant: "destructive" });
       return;
     }
-    updateMutation.mutate({ id: absentDialog.id, status: "absent", reason });
+    updateMutation.mutate({ id: absentDialog.id, employeeId: absentDialog.employeeId, status: "absent", reason });
   };
 
   const handleMarkPresent = () => {
     if (!presentConfirm) return;
-    updateMutation.mutate({ id: presentConfirm.id, status: "present" });
+    updateMutation.mutate({ id: presentConfirm.id, employeeId: presentConfirm.employeeId, status: "present" });
   };
 
-  const filtered = (records ?? []) as AttendanceRecord[];
-  const presentCount = filtered.filter((a) => a.status === "present").length;
-  const absentCount = filtered.filter((a) => a.status === "absent").length;
+  const filtered = (report?.attendanceData ?? []) as unknown as Attendance[];
+  const presentCount = report?.presentCount ?? 0;
+  const absentCount = report?.absentCount ?? 0;
 
   return (
     <div className="space-y-8 animate-in-fade">
@@ -194,7 +202,7 @@ export default function AdminAttendance() {
                         onClick={() => {
                           setAbsentReason("");
                           setAbsentOtherText("");
-                          setAbsentDialog({ id: att.id, name: att.profiles.full_name });
+                          setAbsentDialog({ id: att.id, employeeId: att.employeeId, name: att.profiles.full_name });
                         }}
                         disabled={updateMutation.isPending}
                       >
@@ -205,7 +213,7 @@ export default function AdminAttendance() {
                         size="sm"
                         variant="outline"
                         className="rounded-xl"
-                        onClick={() => setPresentConfirm({ id: att.id, name: att.profiles.full_name })}
+                        onClick={() => setPresentConfirm({ id: att.id, employeeId: att.employeeId, name: att.profiles.full_name })}
                         disabled={updateMutation.isPending}
                       >
                         <UserCheck className="h-4 w-4 mr-1" /> Mark Present

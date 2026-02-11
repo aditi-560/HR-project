@@ -224,7 +224,13 @@ export const attendanceApi = {
     if (filters?.date) params.set("date", filters.date);
     if (filters?.name) params.set("name", filters.name);
     const q = params.toString();
-    return request<(Attendance & { profiles: { full_name: string; email: string } })[]>(
+    return request<{
+      date: string;
+      totalEmployees: number;
+      presentCount: number;
+      absentCount: number;
+      attendanceData: (Attendance & { profiles: { full_name: string; email: string } })[];
+    }>(
       `/attendance/admin/all${q ? `?${q}` : ""}`
     );
   },
@@ -234,7 +240,17 @@ export const attendanceApi = {
       `/attendance/update/${id}`,
       {
         method: "PATCH",
-        data: { status, reason },
+        body: JSON.stringify({ status, reason }),
+      }
+    );
+  },
+
+  async adminMark(user_id: string, date: string, status: "present" | "absent", reason?: string) {
+    return request<Attendance & { profiles: { full_name: string; email: string } }>(
+      "/attendance/admin/mark",
+      {
+        method: "POST",
+        body: JSON.stringify({ user_id, date, status, reason }),
       }
     );
   },
