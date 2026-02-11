@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
     await LeaveBalance.create({ user_id: user._id });
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
 
-    // Send Welcome Email
+    // Send Welcome Email (Non-blocking)
     const emailSubject = 'Welcome to HR Harmony!';
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
         <p><strong>The HR Harmony Team</strong></p>
       </div>
     `;
-    await sendEmail(user.email, emailSubject, emailHtml);
+    sendEmail(user.email, emailSubject, emailHtml).catch(err => console.error("Email sending failed:", err));
 
     res.status(201).json({
       token,
@@ -119,7 +119,7 @@ router.post('/google', async (req, res) => {
       });
       await LeaveBalance.create({ user_id: user._id });
 
-      // Send Welcome Email for Google Sign-up
+      // Send Welcome Email for Google Sign-up (Non-blocking)
       const emailSubject = 'Welcome to HR Harmony!';
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
@@ -131,7 +131,7 @@ router.post('/google', async (req, res) => {
           <p><strong>The HR Harmony Team</strong></p>
         </div>
       `;
-      await sendEmail(user.email, emailSubject, emailHtml);
+      sendEmail(user.email, emailSubject, emailHtml).catch(err => console.error("Email sending failed:", err));
 
     } else {
       // Link Google ID if not linked

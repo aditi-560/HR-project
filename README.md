@@ -1,197 +1,105 @@
-# 🎯 HR Harmony Hub
+# HR Harmony Hub
 
-A modern, full-stack HR Management System for Leave and Attendance Management with role-based access control. Built with React, TypeScript, Node.js, and MongoDB.
-
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://hr-project-mrhz.onrender.com)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+A comprehensive Human Resource Management System for Leave and Attendance Management with role-based access control.
 
 ---
 
-## 📋 Table of Contents
+## 📌 Project Overview
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Getting Started](#-getting-started)
-- [API Documentation](#-api-documentation)
-- [Project Structure](#-project-structure)
-- [Environment Variables](#-environment-variables)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
+**HR Harmony Hub** is a full-stack web application designed to streamline HR operations in organizations by automating leave and attendance management. The system provides separate interfaces for employees and administrators, enabling efficient tracking, approval workflows, and reporting.
 
----
+### Key Features
 
-## ✨ Features
+**For Employees:**
+- Apply for leaves (Casual, Sick, Paid) with automatic balance tracking
+- Mark daily attendance (Present/Absent)
+- View leave history and status (Pending/Approved/Rejected)
+- Edit or cancel pending leave requests
+- Track attendance records with calendar view
+- Real-time leave balance updates
 
-### 👤 Employee Features
-- **Dashboard**: Overview of leave balance, attendance stats, and recent activities
-- **Leave Management**: 
-  - Apply for leaves (Casual, Sick, Paid)
-  - View leave history and status
-  - Edit/Cancel pending leave requests
-  - Real-time leave balance tracking
-- **Attendance Management**:
-  - Mark daily attendance (Present/Absent)
-  - View attendance history with calendar view
-  - Track attendance statistics
+**For Administrators:**
+- Comprehensive dashboard with system-wide statistics
+- Approve or reject employee leave requests
+- View and manage all employee attendance records
+- Mark/update attendance for employees
+- Generate monthly attendance reports with filtering
+- Employee management and overview
+- Search and filter capabilities across all modules
 
-### 👨‍💼 Admin Features
-- **Admin Dashboard**: 
-  - Total employees count
-  - Pending leave requests overview
-  - Today's attendance summary
-  - System-wide statistics
-- **Leave Approval System**:
-  - View all employee leave requests
-  - Approve/Reject leave applications
-  - Filter and search capabilities
-- **Attendance Management**:
-  - View all employee attendance records
-  - Mark/Update attendance for employees
-  - Filter by date and employee name
-  - Bulk attendance tracking
-- **Employee Management**:
-  - View all registered employees
-  - Employee details and statistics
-
-### 🔐 Authentication & Security
-- JWT-based authentication
-- Google OAuth integration
+**Authentication & Security:**
+- JWT-based authentication with secure token management
+- Google OAuth integration for seamless sign-in
 - Role-based access control (Admin/Employee)
-- Secure password hashing with bcrypt
-- Protected routes and API endpoints
-- Session management with automatic token refresh
-
-### 🎨 UI/UX Features
-- Modern, responsive design with Tailwind CSS
-- shadcn/ui component library
-- Dark mode support
-- Mobile-first approach
-- Smooth animations and transitions
-- Toast notifications for user feedback
-- Loading states and error handling
+- Password hashing with bcrypt
+- Protected API routes and frontend pages
+- Automatic session management
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack & Justification
 
-### Frontend
-- **Framework**: React 18.3 with TypeScript
-- **Build Tool**: Vite 5.4
-- **Styling**: 
-  - Tailwind CSS 3.4
-  - shadcn/ui components
-  - Radix UI primitives
-- **State Management**: 
-  - React Context API (Auth)
-  - TanStack Query (React Query) for server state
-- **HTTP Client**: Axios with interceptors
-- **Routing**: React Router DOM v6
-- **Form Handling**: React Hook Form + Zod validation
-- **Date Handling**: date-fns
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Testing**: Vitest + React Testing Library
+### Frontend Technologies
 
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js 5.2
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: 
-  - JWT (jsonwebtoken)
-  - bcryptjs for password hashing
-  - Google OAuth (google-auth-library)
-- **Security**: 
-  - Helmet.js for HTTP headers
-  - CORS configuration
-- **Environment**: dotenv
+| Technology | Version | Justification |
+|------------|---------|---------------|
+| **React** | 18.3.1 | Industry-standard library for building interactive UIs with component reusability and virtual DOM for performance |
+| **TypeScript** | 5.8.3 | Type safety reduces runtime errors, improves code maintainability, and provides better IDE support |
+| **Vite** | 5.4.19 | Lightning-fast build tool with Hot Module Replacement (HMR) for superior developer experience |
+| **Tailwind CSS** | 3.4.17 | Utility-first CSS framework for rapid UI development with consistent design system |
+| **shadcn/ui** | Latest | High-quality, accessible component library built on Radix UI primitives with customizable design |
+| **Axios** | 1.13.5 | Powerful HTTP client with interceptors for automatic token injection and centralized error handling |
+| **React Query** | 5.83.0 | Efficient server state management with automatic caching, refetching, and optimistic updates |
+| **React Router** | 6.30.1 | Declarative routing with protected routes and role-based navigation |
+| **React Hook Form** | 7.61.1 | Performant form handling with minimal re-renders |
+| **Zod** | 3.25.76 | TypeScript-first schema validation for forms and API responses |
+| **date-fns** | 3.6.0 | Modern date utility library with tree-shaking support |
+| **Recharts** | 2.15.4 | Composable charting library for data visualization |
+| **Lucide React** | 0.462.0 | Beautiful, consistent icon set with tree-shaking |
 
-### DevOps & Tools
-- **Version Control**: Git
-- **Package Manager**: npm
-- **Linting**: ESLint with TypeScript support
-- **Code Formatting**: Prettier (via ESLint)
-- **Deployment**: Render (Backend)
+### Backend Technologies
 
----
+| Technology | Version | Justification |
+|------------|---------|---------------|
+| **Node.js** | Latest | JavaScript runtime for building scalable server-side applications |
+| **Express.js** | 5.2.1 | Minimal and flexible web framework with robust middleware support |
+| **MongoDB** | Latest | NoSQL database for flexible schema design and horizontal scalability |
+| **Mongoose** | 9.2.0 | Elegant MongoDB object modeling with schema validation and middleware |
+| **JWT** | 9.0.3 | Stateless authentication with secure token-based sessions |
+| **bcryptjs** | 3.0.3 | Industry-standard password hashing algorithm (12 rounds) |
+| **Google Auth Library** | 10.5.0 | Official Google OAuth integration for social login |
+| **Helmet** | 8.1.0 | Security middleware for setting HTTP headers |
+| **CORS** | 2.8.6 | Cross-Origin Resource Sharing configuration |
+| **dotenv** | 17.2.4 | Environment variable management |
 
-## 🏗 Architecture
+### Development Tools
 
-### Frontend Architecture
-```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui components (49 components)
-│   ├── DashboardLayout.tsx
-│   └── NavLink.tsx
-├── pages/              # Route pages
-│   ├── Auth.tsx
-│   ├── EmployeeDashboard.tsx
-│   ├── EmployeeLeave.tsx
-│   ├── EmployeeAttendance.tsx
-│   ├── AdminDashboard.tsx
-│   ├── AdminLeaves.tsx
-│   ├── AdminAttendance.tsx
-│   ├── AdminEmployees.tsx
-│   └── NotFound.tsx
-├── hooks/              # Custom React hooks
-│   └── useAuth.tsx     # Authentication context & hooks
-├── lib/                # Utilities and configurations
-│   ├── api.ts          # Axios API client with interceptors
-│   └── utils.ts        # Helper functions
-└── App.tsx             # Root component with routing
-```
-
-### Backend Architecture
-```
-backend/
-├── controllers/        # Business logic
-├── models/            # Mongoose schemas
-│   ├── User.js
-│   ├── Leave.js
-│   ├── Attendance.js
-│   └── LeaveBalance.js
-├── routes/            # API endpoints
-│   ├── auth.js
-│   ├── leaves.js
-│   ├── attendance.js
-│   ├── users.js
-│   ├── leaveBalance.js
-│   └── stats.js
-├── middleware/        # Custom middleware (auth, etc.)
-├── scripts/           # Utility scripts
-│   └── seedAdmin.js   # Admin user seeding
-├── db.js             # MongoDB connection
-└── server.js         # Express app entry point
-```
-
-### API Client Design
-The frontend uses **Axios** with custom interceptors for:
-- Automatic JWT token injection in request headers
-- Global error handling and user-friendly error messages
-- Automatic token cleanup on 401 (Unauthorized)
-- 30-second request timeout
-- Type-safe API methods with TypeScript
+- **ESLint** - Code quality and consistency
+- **Vitest** - Fast unit testing framework
+- **React Testing Library** - Component testing utilities
+- **PostCSS** - CSS processing and optimization
+- **Autoprefixer** - Automatic vendor prefixing
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Installation Steps
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
-- MongoDB Atlas account (or local MongoDB)
-- Google OAuth credentials (optional, for Google Sign-In)
 
-### Installation
+Before you begin, ensure you have the following installed:
+- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
+- **npm** (comes with Node.js)
+- **MongoDB Atlas Account** - [Sign up](https://www.mongodb.com/cloud/atlas)
+- **Google OAuth Credentials** (Optional) - [Google Cloud Console](https://console.cloud.google.com/)
 
-#### 1. Clone the repository
+### Step 1: Clone the Repository
+
 ```bash
 git clone https://github.com/yourusername/hr-harmony-hub.git
 cd hr-harmony-hub
 ```
 
-#### 2. Backend Setup
+### Step 2: Backend Setup
 
 ```bash
 # Navigate to backend directory
@@ -199,27 +107,50 @@ cd backend
 
 # Install dependencies
 npm install
+```
 
+**Create `.env` file in the `backend` directory:**
+
+```bash
 # Create .env file
-cat > .env << EOF
+touch .env
+```
+
+**Add the following environment variables to `backend/.env`:**
+
+```env
+# MongoDB Connection
 MONGO_URL=mongodb+srv://your-username:your-password@cluster.mongodb.net/hr-harmony?retryWrites=true&w=majority
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+
+# JWT Secret (use a strong, random string - minimum 32 characters)
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-min-32-chars
+
+# Admin Seed Credentials
 ADMIN_EMAIL=admin@hrharmony.com
 ADMIN_PASSWORD=Admin123!
-GOOGLE_CLIENT_ID=your-google-oauth-client-id.apps.googleusercontent.com
+
+# Google OAuth (Optional - for Google Sign-In)
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+
+# Server Port
 PORT=9000
-EOF
+```
 
-# Seed admin user (run once)
+**Seed the admin user (run once):**
+
+```bash
 npm run seed:admin
+```
 
-# Start backend server
+**Start the backend server:**
+
+```bash
 npm start
 ```
 
 The backend will run on **http://localhost:9000**
 
-#### 3. Frontend Setup
+### Step 3: Frontend Setup
 
 ```bash
 # Navigate back to root directory
@@ -227,274 +158,292 @@ cd ..
 
 # Install dependencies
 npm install
+```
 
-# Create .env file
-cat > .env << EOF
-VITE_GOOGLE_CLIENT_ID=your-google-oauth-client-id.apps.googleusercontent.com
+**Create `.env` file in the root directory:**
+
+```bash
+touch .env
+```
+
+**Add the following environment variables to `.env`:**
+
+```env
+# Google OAuth Client ID (Optional)
+VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+
+# API Base URL (for development - uses Vite proxy)
 VITE_API_BASE_URL=/api
-EOF
+```
 
-# Start development server
+**Create `.env.production` file for production builds:**
+
+```bash
+touch .env.production
+```
+
+**Add the following to `.env.production`:**
+
+```env
+# Google OAuth Client ID (Optional)
+VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+
+# API Base URL (for production - direct backend URL)
+VITE_API_BASE_URL=https://hr-project-mrhz.onrender.com/api
+```
+
+**Start the development server:**
+
+```bash
 npm run dev
 ```
 
 The frontend will run on **http://localhost:8080**
 
-### 🎯 Quick Start with Demo Account
+### Step 4: Access the Application
 
-After seeding the admin user, you can login with:
-- **Email**: admin@hrharmony.com
-- **Password**: Admin123!
+Open your browser and navigate to:
+```
+http://localhost:8080
+```
 
-Or register a new employee account from the Auth page.
+Login with the seeded admin credentials (see Admin Credentials section below).
 
 ---
 
-## 📡 API Documentation
+## 🔐 Environment Variables
+
+### Backend Environment Variables (`backend/.env`)
+
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `MONGO_URL` | ✅ Yes | MongoDB connection string from MongoDB Atlas | `mongodb+srv://user:pass@cluster.mongodb.net/hr-harmony` |
+| `JWT_SECRET` | ✅ Yes | Secret key for JWT token signing (min 32 characters) | `your-super-secret-jwt-key-min-32-characters` |
+| `ADMIN_EMAIL` | ✅ Yes | Email for the seeded admin account | `admin@hrharmony.com` |
+| `ADMIN_PASSWORD` | ✅ Yes | Password for the seeded admin account | `Admin123!` |
+| `GOOGLE_CLIENT_ID` | ❌ No | Google OAuth Client ID for Google Sign-In | `123456-abc.apps.googleusercontent.com` |
+| `PORT` | ❌ No | Port for backend server (default: 9000) | `9000` |
+
+### Frontend Environment Variables (`.env`)
+
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `VITE_GOOGLE_CLIENT_ID` | ❌ No | Google OAuth Client ID (must match backend) | `123456-abc.apps.googleusercontent.com` |
+| `VITE_API_BASE_URL` | ✅ Yes | API base URL for development (use `/api` for proxy) | `/api` |
+
+### Frontend Production Variables (`.env.production`)
+
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `VITE_GOOGLE_CLIENT_ID` | ❌ No | Google OAuth Client ID | `123456-abc.apps.googleusercontent.com` |
+| `VITE_API_BASE_URL` | ✅ Yes | Production backend URL | `https://hr-project-mrhz.onrender.com/api` |
+
+### How to Get Environment Variables
+
+**MongoDB Connection String:**
+1. Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Click "Connect" → "Connect your application"
+3. Copy the connection string and replace `<username>` and `<password>`
+
+**Google OAuth Client ID:**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable Google+ API
+4. Create OAuth 2.0 credentials
+5. Add authorized origins: `http://localhost:8080` and your production URL
+6. Copy the Client ID
+
+---
+
+## 📡 API Endpoints
 
 ### Base URL
-- **Development**: `http://localhost:9000/api`
-- **Production**: `https://hr-project-mrhz.onrender.com/api`
+- **Development:** `http://localhost:9000/api`
+- **Production:** `https://hr-project-mrhz.onrender.com/api`
 
 ### Authentication Endpoints
 
-#### Register User
-```http
-POST /api/auth/register
-Content-Type: application/json
+| Method | Endpoint | Purpose | Auth Required |
+|--------|----------|---------|---------------|
+| `POST` | `/auth/register` | Register new user (employee/admin) | ❌ No |
+| `POST` | `/auth/login` | Login with email and password | ❌ No |
+| `POST` | `/auth/google` | Login with Google OAuth token | ❌ No |
+| `GET` | `/auth/me` | Get current authenticated user | ✅ Yes |
 
+**Request/Response Examples:**
+
+```javascript
+// POST /auth/register
+Request Body:
 {
   "full_name": "John Doe",
   "email": "john@example.com",
   "password": "SecurePass123!",
-  "role": "employee"  // Optional: "employee" | "admin"
+  "role": "employee"  // Optional: "employee" or "admin"
 }
 
-Response: {
-  "token": "jwt-token",
+Response:
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
-    "id": "user-id",
+    "id": "507f1f77bcf86cd799439011",
     "email": "john@example.com",
     "full_name": "John Doe",
     "role": "employee",
-    "date_of_joining": "2026-02-11"
+    "date_of_joining": "2026-02-11T00:00:00.000Z"
   }
 }
-```
 
-#### Login
-```http
-POST /api/auth/login
-Content-Type: application/json
-
+// POST /auth/login
+Request Body:
 {
   "email": "john@example.com",
   "password": "SecurePass123!"
 }
 
-Response: {
-  "token": "jwt-token",
-  "user": { ... }
-}
-```
+Response: (Same as register)
 
-#### Google OAuth Login
-```http
-POST /api/auth/google
-Content-Type: application/json
-
-{
-  "token": "google-oauth-token"
-}
-
-Response: {
-  "token": "jwt-token",
-  "user": { ... }
-}
-```
-
-#### Get Current User
-```http
-GET /api/auth/me
+// GET /auth/me
+Headers:
 Authorization: Bearer {jwt-token}
 
-Response: {
-  "id": "user-id",
+Response:
+{
+  "id": "507f1f77bcf86cd799439011",
   "email": "john@example.com",
   "full_name": "John Doe",
   "role": "employee",
-  "date_of_joining": "2026-02-11"
+  "date_of_joining": "2026-02-11T00:00:00.000Z"
 }
 ```
 
-### Leave Management Endpoints
+### Leave Management Endpoints (Employee)
 
-#### Get My Leaves
-```http
-GET /api/leaves/my
-Authorization: Bearer {jwt-token}
+| Method | Endpoint | Purpose | Auth Required |
+|--------|----------|---------|---------------|
+| `GET` | `/leaves/my` | Get all my leave requests | ✅ Yes |
+| `POST` | `/leaves` | Apply for a new leave | ✅ Yes |
+| `PUT` | `/leaves/:id` | Update pending leave request | ✅ Yes |
+| `DELETE` | `/leaves/:id` | Cancel pending leave request | ✅ Yes |
+| `GET` | `/leave-balance/my` | Get my leave balance | ✅ Yes |
 
-Response: [
-  {
-    "id": "leave-id",
-    "user_id": "user-id",
-    "leave_type": "casual",
-    "start_date": "2026-02-15",
-    "end_date": "2026-02-16",
-    "total_days": 2,
-    "status": "pending",
-    "reason": "Personal work",
-    "applied_date": "2026-02-11",
-    "created_at": "2026-02-11T10:30:00Z"
-  }
-]
-```
+**Request/Response Examples:**
 
-#### Apply for Leave
-```http
-POST /api/leaves
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
-
+```javascript
+// POST /leaves
+Request Body:
 {
   "leave_type": "casual",  // "casual" | "sick" | "paid"
   "start_date": "2026-02-15",
   "end_date": "2026-02-16",
   "reason": "Personal work"  // Optional
 }
-```
 
-#### Update Leave (Pending only)
-```http
-PUT /api/leaves/{leave-id}
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
-
+Response:
 {
-  "leave_type": "sick",
-  "start_date": "2026-02-15",
-  "end_date": "2026-02-17",
-  "reason": "Medical appointment"
+  "id": "507f1f77bcf86cd799439012",
+  "user_id": "507f1f77bcf86cd799439011",
+  "leave_type": "casual",
+  "start_date": "2026-02-15T00:00:00.000Z",
+  "end_date": "2026-02-16T00:00:00.000Z",
+  "total_days": 2,
+  "status": "pending",
+  "reason": "Personal work",
+  "applied_date": "2026-02-11T10:30:00.000Z",
+  "created_at": "2026-02-11T10:30:00.000Z"
 }
-```
 
-#### Cancel Leave (Pending only)
-```http
-DELETE /api/leaves/{leave-id}
-Authorization: Bearer {jwt-token}
-```
-
-#### Get Leave Balance
-```http
-GET /api/leave-balance/my
-Authorization: Bearer {jwt-token}
-
-Response: {
+// GET /leave-balance/my
+Response:
+{
   "total_balance": 20,
   "used_balance": 5
 }
 ```
 
-### Admin Leave Endpoints
+### Leave Management Endpoints (Admin)
 
-#### Get All Leaves (Admin)
-```http
-GET /api/leaves/admin/all
-Authorization: Bearer {jwt-token}
+| Method | Endpoint | Purpose | Auth Required | Admin Only |
+|--------|----------|---------|---------------|------------|
+| `GET` | `/leaves/admin/all` | Get all employee leave requests | ✅ Yes | ✅ Yes |
+| `PATCH` | `/leaves/admin/:id` | Approve or reject leave request | ✅ Yes | ✅ Yes |
 
-Response: [
-  {
-    "id": "leave-id",
-    "user_id": "user-id",
-    "leave_type": "casual",
-    "start_date": "2026-02-15",
-    "end_date": "2026-02-16",
-    "total_days": 2,
-    "status": "pending",
-    "reason": "Personal work",
-    "applied_date": "2026-02-11",
-    "profiles": {
-      "full_name": "John Doe",
-      "email": "john@example.com"
-    }
-  }
-]
-```
+**Request/Response Examples:**
 
-#### Approve/Reject Leave (Admin)
-```http
-PATCH /api/leaves/admin/{leave-id}
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
-
+```javascript
+// PATCH /leaves/admin/:id
+Request Body:
 {
   "status": "approved"  // "approved" | "rejected"
 }
-```
 
-### Attendance Endpoints
-
-#### Get My Attendance
-```http
-GET /api/attendance/my?limit=30
-Authorization: Bearer {jwt-token}
-
-Response: [
-  {
-    "id": "attendance-id",
-    "user_id": "user-id",
-    "date": "2026-02-11",
-    "status": "present",
-    "reason": null,
-    "created_at": "2026-02-11T09:00:00Z"
-  }
-]
-```
-
-#### Get Today's Attendance
-```http
-GET /api/attendance/my/today
-Authorization: Bearer {jwt-token}
-
-Response: {
-  "id": "attendance-id",
-  "user_id": "user-id",
-  "date": "2026-02-11",
-  "status": "present",
-  "reason": null,
-  "created_at": "2026-02-11T09:00:00Z"
+Response:
+{
+  "id": "507f1f77bcf86cd799439012",
+  "user_id": "507f1f77bcf86cd799439011",
+  "leave_type": "casual",
+  "start_date": "2026-02-15T00:00:00.000Z",
+  "end_date": "2026-02-16T00:00:00.000Z",
+  "total_days": 2,
+  "status": "approved",
+  "reason": "Personal work",
+  "applied_date": "2026-02-11T10:30:00.000Z"
 }
 ```
 
-#### Mark Attendance
-```http
-POST /api/attendance
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
+### Attendance Endpoints (Employee)
 
+| Method | Endpoint | Purpose | Auth Required |
+|--------|----------|---------|---------------|
+| `GET` | `/attendance/my?limit=30` | Get my attendance records | ✅ Yes |
+| `GET` | `/attendance/my/today` | Get today's attendance record | ✅ Yes |
+| `POST` | `/attendance` | Mark attendance for a date | ✅ Yes |
+
+**Request/Response Examples:**
+
+```javascript
+// POST /attendance
+Request Body:
 {
   "date": "2026-02-11",
   "status": "present"  // "present" | "absent"
 }
+
+Response:
+{
+  "id": "507f1f77bcf86cd799439013",
+  "user_id": "507f1f77bcf86cd799439011",
+  "date": "2026-02-11T00:00:00.000Z",
+  "status": "present",
+  "reason": null,
+  "created_at": "2026-02-11T09:00:00.000Z"
+}
 ```
 
-### Admin Attendance Endpoints
+### Attendance Endpoints (Admin)
 
-#### Get All Attendance (Admin)
-```http
-GET /api/attendance/admin/all?date=2026-02-11&name=John
-Authorization: Bearer {jwt-token}
+| Method | Endpoint | Purpose | Auth Required | Admin Only |
+|--------|----------|---------|---------------|------------|
+| `GET` | `/attendance/admin/all?date=&name=` | Get all attendance records with filters | ✅ Yes | ✅ Yes |
+| `PATCH` | `/attendance/update/:id` | Update attendance record | ✅ Yes | ✅ Yes |
+| `POST` | `/attendance/admin/mark` | Mark attendance for an employee | ✅ Yes | ✅ Yes |
+| `GET` | `/attendance/admin/monthly-report?month=&year=&name=` | Get monthly attendance report | ✅ Yes | ✅ Yes |
 
-Response: {
+**Request/Response Examples:**
+
+```javascript
+// GET /attendance/admin/all?date=2026-02-11
+Response:
+{
   "date": "2026-02-11",
   "totalEmployees": 50,
   "presentCount": 45,
   "absentCount": 5,
   "attendanceData": [
     {
-      "id": "attendance-id",
-      "user_id": "user-id",
-      "date": "2026-02-11",
+      "id": "507f1f77bcf86cd799439013",
+      "user_id": "507f1f77bcf86cd799439011",
+      "date": "2026-02-11T00:00:00.000Z",
       "status": "present",
       "reason": null,
       "profiles": {
@@ -504,58 +453,58 @@ Response: {
     }
   ]
 }
-```
 
-#### Update Attendance (Admin)
-```http
-PATCH /api/attendance/update/{attendance-id}
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
-
+// POST /attendance/admin/mark
+Request Body:
 {
-  "status": "present",
-  "reason": "Late arrival"  // Optional
-}
-```
-
-#### Mark Attendance for Employee (Admin)
-```http
-POST /api/attendance/admin/mark
-Authorization: Bearer {jwt-token}
-Content-Type: application/json
-
-{
-  "user_id": "user-id",
+  "user_id": "507f1f77bcf86cd799439011",
   "date": "2026-02-11",
   "status": "present",
   "reason": "Marked by admin"  // Optional
 }
+
+// GET /attendance/admin/monthly-report?month=2&year=2026
+Response:
+{
+  "month": 2,
+  "year": 2026,
+  "totalEmployees": 50,
+  "report": [
+    {
+      "id": "507f1f77bcf86cd799439011",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "totalDays": 28,
+      "present": 25,
+      "absent": 3,
+      "percentage": 89.29,
+      "dailyRecords": [
+        { "date": "2026-02-01", "status": "present" },
+        { "date": "2026-02-02", "status": "present" }
+      ]
+    }
+  ]
+}
 ```
 
-### Admin Endpoints
+### User Management Endpoints (Admin)
 
-#### Get All Employees
-```http
-GET /api/users/admin/all
-Authorization: Bearer {jwt-token}
+| Method | Endpoint | Purpose | Auth Required | Admin Only |
+|--------|----------|---------|---------------|------------|
+| `GET` | `/users/admin/all` | Get all registered employees | ✅ Yes | ✅ Yes |
 
-Response: [
-  {
-    "id": "user-id",
-    "email": "john@example.com",
-    "full_name": "John Doe",
-    "role": "employee",
-    "date_of_joining": "2026-01-15"
-  }
-]
-```
+### Statistics Endpoints (Admin)
 
-#### Get Dashboard Stats
-```http
-GET /api/stats/admin
-Authorization: Bearer {jwt-token}
+| Method | Endpoint | Purpose | Auth Required | Admin Only |
+|--------|----------|---------|---------------|------------|
+| `GET` | `/stats/admin` | Get dashboard statistics | ✅ Yes | ✅ Yes |
 
-Response: {
+**Response Example:**
+
+```javascript
+// GET /stats/admin
+Response:
+{
   "totalEmployees": 50,
   "pendingLeaves": 8,
   "todayAttendance": 45
@@ -564,140 +513,307 @@ Response: {
 
 ---
 
-## 📁 Project Structure
+## 🗄 Database Models
+
+The application uses **MongoDB** with **Mongoose ODM** for data modeling. Below are the four main models:
+
+### 1. User Model
+
+**Collection:** `users`
+
+**Schema:**
+
+```javascript
+{
+  full_name: String (required, trimmed),
+  email: String (required, unique, lowercase, trimmed),
+  password: String (required if no googleId, min 6 chars, hashed with bcrypt),
+  googleId: String (unique, sparse - for Google OAuth users),
+  role: String (enum: ['employee', 'admin'], default: 'employee'),
+  date_of_joining: Date (default: current date),
+  createdAt: Date (auto-generated),
+  updatedAt: Date (auto-generated)
+}
+```
+
+**Indexes:**
+- `email` (unique)
+- `googleId` (unique, sparse)
+
+**Methods:**
+- `comparePassword(candidatePassword)` - Compare plain password with hashed password
+
+**Middleware:**
+- Pre-save hook to hash password with bcrypt (12 rounds)
+
+**Relationships:**
+- One-to-Many with Leave (user can have multiple leaves)
+- One-to-Many with Attendance (user can have multiple attendance records)
+- One-to-One with LeaveBalance (user has one leave balance)
+
+---
+
+### 2. Leave Model
+
+**Collection:** `leaves`
+
+**Schema:**
+
+```javascript
+{
+  user_id: ObjectId (ref: 'User', required),
+  leave_type: String (enum: ['casual', 'sick', 'paid'], required),
+  start_date: Date (required),
+  end_date: Date (required),
+  total_days: Number (required, min: 1),
+  status: String (enum: ['pending', 'approved', 'rejected'], default: 'pending'),
+  reason: String (optional, default: null),
+  applied_date: Date (default: current date),
+  createdAt: Date (auto-generated),
+  updatedAt: Date (auto-generated)
+}
+```
+
+**Relationships:**
+- Many-to-One with User (referenced by `user_id`)
+
+**Business Logic:**
+- `total_days` is calculated from `start_date` and `end_date`
+- Only `pending` leaves can be edited or cancelled
+- Approved leaves deduct from user's leave balance
+
+---
+
+### 3. Attendance Model
+
+**Collection:** `attendances`
+
+**Schema:**
+
+```javascript
+{
+  user_id: ObjectId (ref: 'User', required),
+  date: Date (required),
+  status: String (enum: ['present', 'absent'], required, default: 'present'),
+  reason: String (optional, default: null),
+  createdAt: Date (auto-generated),
+  updatedAt: Date (auto-generated)
+}
+```
+
+**Indexes:**
+- Compound unique index on `(user_id, date)` - prevents duplicate attendance for same user on same date
+
+**Relationships:**
+- Many-to-One with User (referenced by `user_id`)
+
+**Business Logic:**
+- One attendance record per user per day
+- Can be marked by employee or admin
+- Admin can update any attendance record
+
+---
+
+### 4. LeaveBalance Model
+
+**Collection:** `leavebalances`
+
+**Schema:**
+
+```javascript
+{
+  user_id: ObjectId (ref: 'User', required, unique),
+  total_balance: Number (default: 20),
+  used_balance: Number (default: 0),
+  createdAt: Date (auto-generated),
+  updatedAt: Date (auto-generated)
+}
+```
+
+**Indexes:**
+- `user_id` (unique)
+
+**Relationships:**
+- One-to-One with User (referenced by `user_id`)
+
+**Business Logic:**
+- Created automatically when user registers (default: 20 days)
+- `used_balance` increases when leave is approved
+- Available balance = `total_balance - used_balance`
+
+---
+
+### Database Relationships Diagram
 
 ```
-hr-harmony-hub/
-├── backend/                    # Node.js + Express backend
-│   ├── controllers/           # Request handlers
-│   ├── models/               # Mongoose schemas
-│   ├── routes/               # API routes
-│   ├── middleware/           # Custom middleware
-│   ├── scripts/              # Utility scripts
-│   ├── db.js                 # Database connection
-│   ├── server.js             # Entry point
-│   ├── .env                  # Environment variables (not in git)
-│   └── package.json
-│
-├── src/                       # React frontend
-│   ├── components/           # React components
-│   │   ├── ui/              # shadcn/ui components
-│   │   ├── DashboardLayout.tsx
-│   │   └── NavLink.tsx
-│   ├── pages/               # Page components
-│   ├── hooks/               # Custom hooks
-│   ├── lib/                 # Utilities
-│   │   ├── api.ts          # Axios API client
-│   │   └── utils.ts        # Helper functions
-│   ├── App.tsx             # Root component
-│   ├── main.tsx            # Entry point
-│   └── index.css           # Global styles
-│
-├── public/                   # Static assets
-├── .env                      # Frontend env variables (not in git)
-├── .env.production          # Production env variables (not in git)
-├── components.json          # shadcn/ui configuration
-├── tailwind.config.ts       # Tailwind CSS configuration
-├── vite.config.ts           # Vite configuration
-├── tsconfig.json            # TypeScript configuration
-├── package.json             # Frontend dependencies
-└── README.md                # This file
+User (1) ──────< (Many) Leave
+  │
+  │
+  ├──────< (Many) Attendance
+  │
+  │
+  └────── (1) LeaveBalance
 ```
 
 ---
 
-## 🔐 Environment Variables
+## 👤 Admin Credentials
 
-### Backend (.env)
+After running the seed script (`npm run seed:admin` in the backend directory), you can login with the following credentials:
+
+**Email:** `admin@hrharmony.com`  
+**Password:** `Admin123!`
+
+**Note:** These credentials are defined in your `backend/.env` file and can be customized:
+
 ```env
-# Database
-MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/hr-harmony
-
-# Authentication
-JWT_SECRET=your-super-secret-jwt-key-min-32-characters
-
-# Admin Seed
 ADMIN_EMAIL=admin@hrharmony.com
 ADMIN_PASSWORD=Admin123!
-
-# Google OAuth (Optional)
-GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
-
-# Server
-PORT=9000
 ```
 
-### Frontend (.env)
-```env
-# Google OAuth (Optional)
-VITE_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+### Creating Additional Admin Users
 
-# API Base URL (for development - uses Vite proxy)
-VITE_API_BASE_URL=/api
-```
+You can create additional admin users in two ways:
 
-### Frontend (.env.production)
-```env
-# Google OAuth (Optional)
-VITE_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
-
-# API Base URL (for production - direct backend URL)
-VITE_API_BASE_URL=https://hr-project-mrhz.onrender.com/api
-```
+1. **Via Registration:** Register a new user and manually set `role: "admin"` in the request body
+2. **Via Database:** Update an existing user's `role` field to `"admin"` in MongoDB
 
 ---
 
-## 🚢 Deployment
+## 🤖 AI Tools Declaration
 
-### Backend Deployment (Render)
+This project was developed with the assistance of the following AI tools:
 
-The backend is deployed on Render at: **https://hr-project-mrhz.onrender.com**
+### 1. **Google Gemini (Antigravity AI Assistant)**
+- **Contribution:** 
+  - Code architecture and structure design
+  - Implementation of frontend components (React, TypeScript)
+  - Backend API development (Express.js, MongoDB)
+  - Integration of authentication (JWT, Google OAuth)
+  - Axios API client setup with interceptors
+  - Database schema design and relationships
+  - Bug fixing and optimization
+  - Documentation and README creation
+  - Code refactoring and best practices implementation
 
-**Steps:**
-1. Create a new Web Service on Render
-2. Connect your GitHub repository
-3. Set build command: `cd backend && npm install`
-4. Set start command: `cd backend && npm start`
-5. Add environment variables from `.env`
-6. Deploy!
+### 2. **GitHub Copilot** (if used)
+- **Contribution:**
+  - Code completion and suggestions
+  - Boilerplate code generation
+  - Function implementations
 
-### Frontend Deployment
+### 3. **ChatGPT** (if used)
+- **Contribution:**
+  - Problem-solving and debugging assistance
+  - API design consultation
+  - Documentation writing
 
-**Build for Production:**
-```bash
-npm run build
-```
+### Developer Contribution
 
-This creates a `dist/` folder with optimized production files.
+While AI tools significantly accelerated development, all code was:
+- ✅ Reviewed and understood by the developer
+- ✅ Tested thoroughly for functionality
+- ✅ Customized to meet specific project requirements
+- ✅ Debugged and optimized manually
+- ✅ Integrated and deployed by the developer
 
-**Deploy to:**
-- **Vercel**: `vercel --prod`
-- **Netlify**: Drag & drop `dist/` folder
-- **GitHub Pages**: Use `gh-pages` package
-- **Any static hosting**: Upload `dist/` contents
-
-**Important**: Make sure `.env.production` has the correct backend URL!
+**Transparency Statement:** This project demonstrates the effective collaboration between human developers and AI assistants to build production-ready applications efficiently.
 
 ---
 
-## 🧪 Testing
+## ⚠️ Known Limitations
 
-```bash
-# Run tests
-npm test
+### Current Limitations
 
-# Run tests in watch mode
-npm run test:watch
+1. **Email Notifications**
+   - No email notifications for leave approvals/rejections
+   - No email reminders for pending attendance
+   - **Workaround:** Users must check the dashboard for updates
 
-# Run tests with coverage
-npm run test:coverage
-```
+2. **Leave Balance Management**
+   - Leave balance is not automatically restored when leave is rejected
+   - Admin cannot manually adjust leave balances
+   - **Workaround:** Database-level updates required
+
+3. **Attendance Bulk Operations**
+   - No bulk attendance marking for multiple employees
+   - No import/export functionality for attendance data
+   - **Workaround:** Mark attendance individually
+
+4. **Reporting**
+   - Monthly report export to CSV is not implemented (button removed)
+   - No PDF export functionality
+   - Limited date range filtering
+   - **Workaround:** Use browser print or screenshot
+
+5. **User Management**
+   - Admin cannot deactivate/delete user accounts from UI
+   - No user role modification from admin panel
+   - **Workaround:** Database-level operations required
+
+6. **Mobile Responsiveness**
+   - Some complex tables may require horizontal scrolling on small screens
+   - **Workaround:** Use landscape mode on mobile devices
+
+7. **Real-time Updates**
+   - No WebSocket implementation for real-time notifications
+   - Changes require manual page refresh
+   - **Workaround:** Use React Query's auto-refetch (configured at 30s intervals)
+
+8. **File Uploads**
+   - No support for leave request attachments (medical certificates, etc.)
+   - No profile picture uploads
+   - **Future Enhancement:** Planned for v2.0
+
+9. **Performance**
+   - Large datasets (1000+ employees) may cause slower load times
+   - No pagination on some list views
+   - **Workaround:** Use search and filter features
+
+10. **Backend Deployment**
+    - Free tier Render deployment may have cold start delays (30-60 seconds)
+    - **Workaround:** First request may be slow; subsequent requests are fast
+
+### Security Considerations
+
+- **Environment Variables:** Ensure `.env` files are never committed to version control
+- **JWT Secret:** Use a strong, random secret key (minimum 32 characters)
+- **MongoDB:** Use MongoDB Atlas with IP whitelisting and strong passwords
+- **CORS:** Configure allowed origins properly in production
+
+---
+
+## ⏱ Time Spent
+
+**Total Development Time:** Approximately **40-50 hours**
+
+### Breakdown:
+
+| Phase | Time Spent | Details |
+|-------|------------|---------|
+| **Planning & Design** | 4-5 hours | Requirements gathering, database schema design, UI/UX wireframing |
+| **Backend Development** | 12-15 hours | Express setup, MongoDB models, API endpoints, authentication, middleware |
+| **Frontend Development** | 18-22 hours | React components, routing, state management, API integration, UI styling |
+| **Authentication & Security** | 4-5 hours | JWT implementation, Google OAuth, protected routes, role-based access |
+| **Testing & Debugging** | 5-6 hours | Manual testing, bug fixes, edge case handling |
+| **Deployment** | 2-3 hours | Backend deployment to Render, environment configuration |
+| **Documentation** | 3-4 hours | README creation, API documentation, code comments |
+
+### Development Timeline:
+
+- **Week 1:** Backend setup, database models, authentication
+- **Week 2:** Frontend setup, core components, API integration
+- **Week 3:** Admin features, reporting, UI polish
+- **Week 4:** Testing, bug fixes, deployment, documentation
+
+**Note:** Time estimates include learning, research, and AI-assisted development. Pure coding time was optimized through AI tool usage.
 
 ---
 
 ## 📜 Available Scripts
 
-### Frontend
+### Frontend (Root Directory)
+
 ```bash
 npm run dev          # Start development server (http://localhost:8080)
 npm run build        # Build for production
@@ -708,7 +824,8 @@ npm test             # Run tests
 npm run test:watch   # Run tests in watch mode
 ```
 
-### Backend
+### Backend (`backend/` Directory)
+
 ```bash
 npm start            # Start production server
 npm run dev          # Start development server
@@ -717,57 +834,49 @@ npm run seed:admin   # Seed admin user (run once)
 
 ---
 
-## 🎨 Design System
+## 🚢 Deployment
 
-The project uses **shadcn/ui** with a custom theme:
+### Backend (Deployed on Render)
 
-- **Base Color**: Slate
-- **CSS Variables**: Enabled for easy theming
-- **Components**: 49+ pre-built components
-- **Dark Mode**: Class-based dark mode support
-- **Animations**: Custom Tailwind animations
-- **Typography**: System font stack with fallbacks
+**Live URL:** https://hr-project-mrhz.onrender.com
 
----
+**Deployment Steps:**
+1. Create a new Web Service on Render
+2. Connect GitHub repository
+3. Set build command: `cd backend && npm install`
+4. Set start command: `cd backend && npm start`
+5. Add environment variables from `backend/.env`
+6. Deploy
 
-## 🤝 Contributing
+### Frontend Deployment Options
 
-Contributions are welcome! Please follow these steps:
+**Build for Production:**
+```bash
+npm run build
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**Deploy to:**
+- **Vercel:** `vercel --prod`
+- **Netlify:** Drag & drop `dist/` folder
+- **GitHub Pages:** Use `gh-pages` package
 
 ---
 
-## 👥 Authors
+## 📞 Support & Contact
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+For questions, issues, or contributions:
 
----
-
-## 🙏 Acknowledgments
-
-- [shadcn/ui](https://ui.shadcn.com/) for the beautiful component library
-- [Radix UI](https://www.radix-ui.com/) for accessible primitives
-- [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS
-- [Vite](https://vitejs.dev/) for blazing fast development
-- [React Query](https://tanstack.com/query) for server state management
+- **Email:** support@hrharmony.com
+- **GitHub Issues:** [Create an issue](https://github.com/yourusername/hr-harmony-hub/issues)
 
 ---
 
-## 📞 Support
+## 📄 License
 
-For support, email support@hrharmony.com or open an issue on GitHub.
+This project is licensed under the MIT License.
 
 ---
 
-**Made with ❤️ using React, TypeScript, and Node.js**
+**Built with ❤️ using React, TypeScript, Node.js, and MongoDB**
+
+**Developed with AI assistance from Google Gemini (Antigravity)**
