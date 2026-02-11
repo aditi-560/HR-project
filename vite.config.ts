@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       "/api": {
-        target: "http://localhost:9000",
+        target: "https://hr-project-mrhz.onrender.com",
         changeOrigin: true,
       },
     },
