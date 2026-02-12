@@ -109,13 +109,17 @@ router.get('/admin/all', authenticate, requireAdmin, async (req, res) => {
       .populate('user_id', 'full_name email')
       .sort({ applied_date: -1 })
       .lean();
-    res.json(leaves.map((l) => ({
+
+    const validLeaves = leaves.filter(l => l.user_id);
+
+    res.json(validLeaves.map((l) => ({
       ...l,
       id: l._id.toString(),
       user_id: l.user_id._id.toString(),
       profiles: { full_name: l.user_id.full_name, email: l.user_id.email },
     })));
   } catch (err) {
+    console.error('Error fetching admin leaves:', err);
     res.status(500).json({ message: err.message || 'Failed to fetch leaves.' });
   }
 });

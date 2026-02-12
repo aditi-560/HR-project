@@ -1,7 +1,7 @@
 // API client for HR Harmony backend
 import axios, { AxiosError, AxiosInstance } from "axios";
 
-const API_BASE = 'https://hr-project-5zt3.onrender.com/api'
+const API_BASE = 'http://localhost:9000/api'
 const TOKEN_KEY = "hr-harmony-token";
 
 // Token management functions

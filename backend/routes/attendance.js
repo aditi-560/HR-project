@@ -187,7 +187,9 @@ router.get('/admin/all', authenticate, requireAdmin, async (req, res) => {
     // Map attendance by user_id for O(1) lookup
     const attendanceMap = new Map();
     attendanceRecords.forEach(att => {
-      attendanceMap.set(att.user_id.toString(), att);
+      if (att.user_id) {
+        attendanceMap.set(att.user_id.toString(), att);
+      }
     });
 
     // 3. Merge results
@@ -278,12 +280,14 @@ router.get('/admin/monthly-report', authenticate, requireAdmin, async (req, res)
     // Map<userId, Map<day, status>>
     const userAttendanceMap = new Map();
     attendanceRecords.forEach(att => {
-      const uid = att.user_id.toString();
-      if (!userAttendanceMap.has(uid)) {
-        userAttendanceMap.set(uid, new Map());
+      if (att.user_id) {
+        const uid = att.user_id.toString();
+        if (!userAttendanceMap.has(uid)) {
+          userAttendanceMap.set(uid, new Map());
+        }
+        const day = new Date(att.date).getDate();
+        userAttendanceMap.get(uid).set(day, att.status);
       }
-      const day = new Date(att.date).getDate();
-      userAttendanceMap.get(uid).set(day, att.status);
     });
 
     // 3. Build Report
